@@ -1,13 +1,14 @@
 const functions = require("firebase-functions");
 const express = require('express')
-const cors = require('cors')
+const cors = require('cors');
+const { getEvents } = require("./src/events");
 const app = express()
 app.use = (cors())
 
-app.get('/events', (req, res)=>{
-  res.send('Yay! i got it working!')
-})
-// app.post('/events', )
+app.get('/events', getEvents)
+// app.get('/events',)
+// app.post('/events',)
+
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
