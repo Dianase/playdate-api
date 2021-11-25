@@ -24,7 +24,7 @@ exports.createUser = (req, res) => {
     return; //exits the function
   }
 
-  //construct new clothing from .body
+  //construct new user from .body
   let user = {
     email: req.body.email,
     firstName: req.body.firstName,

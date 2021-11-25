@@ -18,6 +18,7 @@ exports.getEvents = async (req, res) => {
 };
 
 exports.createEvent = (req, res) => {
+  console.log("oye create Event")
   //check that all required fields are present
   if (
     !req.body.name ||
@@ -28,16 +29,15 @@ exports.createEvent = (req, res) => {
     return; //exits the function
   }
 
-  // const date = new Date(req.body.date);
+  const eventDate = new Date(req.body.date + " " + req.body.time);
   //construct new clothing from .body
   let newEvent = {
     name: req.body.name,
     type: req.body.type,
-    date: req.body.date,
-    time: req.body.time,
+    happening: eventDate,
     location: req.body.location,
     organizer: req.body.organizer,
-    attendees: [string]
+    attendees: []
   };
 
   const db = connectDb();
