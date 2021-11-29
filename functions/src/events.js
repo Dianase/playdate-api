@@ -38,7 +38,7 @@ exports.createEvent = (req, res) => {
   };
 
   const db = connectDb();
-  db.collection("Activities")
+  db.collection("myactivities")
     .add(newEvent)
     .then((docRef) => res.status(201).send({ id: docRef.id }))
     .catch((err) => res.status(201).send(err));
