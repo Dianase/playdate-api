@@ -18,13 +18,9 @@ exports.getEvents = async (req, res) => {
 };
 
 exports.createEvent = (req, res) => {
-  console.log("oye create Event")
+  console.log("oye create Event");
   //check that all required fields are present
-  if (
-    !req.body.name ||
-    !req.body.location ||
-    !req.body.date
-    ) {
+  if (!req.body.name || !req.body.location || !req.body.date) {
     res.status(401).send({ message: "Invalid Inputi-o" });
     return; //exits the function
   }
@@ -35,9 +31,10 @@ exports.createEvent = (req, res) => {
     name: req.body.name,
     type: req.body.type,
     happening: eventDate,
+    image: req.body.image,
     location: req.body.location,
     organizer: req.body.organizer,
-    attendees: []
+    attendees: [],
   };
 
   const db = connectDb();
@@ -66,6 +63,10 @@ exports.getEventById = (req, res) => {
   //return document
 };
 
+// exports.joinEvent = (req, res) => {
+
+// }
+
 exports.updateEvent = (req, res) => {
   const { eventId } = req.params;
   let newUpdates = {};
@@ -91,4 +92,20 @@ exports.deleteEvent = (req, res) => {
     .delete()
     .then(() => res.status(202).send({ message: "deleted" }))
     .catch((err) => res.status(500).send(err));
+};
+exports.getActivities = async (req, res) => {
+  const db = connectDb();
+  db.collection("myactivities")
+    .get()
+    .then((collection) => {
+      const activities = collection.docs.map((doc) => {
+        let activity = doc.data();
+        activity.id = doc.id;
+        return activity;
+      });
+      res.status(200).send(activities);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
 };
