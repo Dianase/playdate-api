@@ -38,7 +38,7 @@ exports.createEvent = (req, res) => {
   };
 
   const db = connectDb();
-  db.collection("myactivities")
+  db.collection("Activities")
     .add(newEvent)
     .then((docRef) => res.status(201).send({ id: docRef.id }))
     .catch((err) => res.status(201).send(err));
@@ -109,3 +109,11 @@ exports.getActivities = async (req, res) => {
       res.status(500).send(err);
     });
 };
+
+exports.joinEvent = (req, res) =>{
+  const db = connectDb();
+  db.collection("myactivities")
+    .add(req.body)
+    .then((docRef) => res.status(201).send({ id: docRef.id }))
+    .catch((err) => res.status(201).send(err));
+}
